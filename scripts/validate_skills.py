@@ -67,13 +67,11 @@ def validate_skill_dir(skill_dir: Path) -> list[str]:
         )
 
     skill_md = skill_dir / "SKILL.md"
-    overview = skill_dir / "references" / "overview.md"
     source_map = skill_dir / "references" / "source-map.md"
     principles = skill_dir / "references" / "principles.md"
     openai_yaml = skill_dir / "agents" / "openai.yaml"
 
     require(skill_md, errors)
-    require(overview, errors)
     require(source_map, errors)
     require(principles, errors)
     validate_openai_yaml(openai_yaml, errors)

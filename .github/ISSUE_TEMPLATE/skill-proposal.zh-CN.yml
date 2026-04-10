@@ -1,0 +1,72 @@
+name: 技能提案
+description: 提议一个新人物技能，或在实现前先请求来源审查。
+title: "[技能提案] "
+labels:
+  - proposal
+body:
+  - type: input
+    id: person
+    attributes:
+      label: 人物
+      description: 这个 skill 对应谁？
+      placeholder: 曾国藩
+    validations:
+      required: true
+
+  - type: input
+    id: skill_name
+    attributes:
+      label: 建议技能名
+      description: 建议使用小写连字符命名
+      placeholder: zeng-guofan
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: 为什么值得做成 skill？
+      description: 这个 skill 能帮助解决什么问题？
+      placeholder: 这个人物在带队、处理危机、做决策方面有很鲜明的方法。
+    validations:
+      required: true
+
+  - type: textarea
+    id: primary_sources
+    attributes:
+      label: 一手来源
+      description: 著作、书信、日记、讲话、访谈、论文等
+      placeholder: |
+        - 《曾国藩家书》
+        - 《曾国藩日记》
+    validations:
+      required: true
+
+  - type: textarea
+    id: secondary_sources
+    attributes:
+      label: 二手来源
+      description: 传记、学术论文、研究资料等
+
+  - type: textarea
+    id: disputed_points
+    attributes:
+      label: 低置信或争议材料
+      description: 流传语录、存疑著作、需要谨慎处理的材料
+
+  - type: textarea
+    id: output
+    attributes:
+      label: 期望输出风格
+      description: 如果做出来，希望它怎么回答用户？
+      placeholder: 给出总判断、先做什么、不要做什么，以及 7 天 / 30 天行动计划。
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 检查项
+      options:
+        - label: 我确认这不是单纯名言拼盘
+          required: true
+        - label: 我理解仓库不接受伤害性、操控性或伪科学内容
+          required: true
