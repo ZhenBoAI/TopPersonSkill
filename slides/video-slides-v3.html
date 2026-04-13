@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TopPerson - 把顶尖人物做成 AI Skill</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #0a0a0f;
+      color: #fff;
+      overflow: hidden;
+    }
+    
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      padding: 60px 80px;
+      position: relative;
+    }
+    
+    .slide.active { display: flex; flex-direction: column; }
+    
+    .dark-bg { background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); }
+    .purple { color: #9333ea; }
+    .gold { color: #f59e0b; }
+    .cyan { color: #06b6d4; }
+    .accent { color: #ec4899; }
+    
+    /* Slide 1: Opening */
+    .s1 {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .s1 .top-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: #9333ea;
+    }
+    
+    .s1 h1 {
+      font-size: 52px;
+      margin-bottom: 30px;
+      animation: fadeUp 0.8s ease-out;
+    }
+    
+    .s1 h2 {
+      font-size: 32px;
+      color: #9ca3af;
+      margin-bottom: 30px;
+      animation: fadeUp 0.8s ease-out 0.2s both;
+    }
+    
+    .s1 h3 {
+      font-size: 80px;
+      font-weight: 800;
+      color: #9333ea;
+      animation: pulse 2s ease-in-out infinite, fadeUp 0.8s ease-out 0.4s both;
+    }
+    
+    .s1 .line {
+      width: 300px;
+      height: 4px;
+      background: #9333ea;
+      margin-top: 50px;
+    }
+    
+    /* Slide 2: Reveal */
+    .s2 {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .s2 h1 {
+      font-size: 72px;
+      font-weight: 800;
+      margin-bottom: 30px;
+      animation: fadeUp 0.8s ease-out;
+    }
+    
+    .s2 h2 {
+      font-size: 28px;
+      color: #e5e7eb;
+      margin-bottom: 40px;
+      animation: fadeUp 0.8s ease-out 0.2s both;
+    }
+    
+    .s2 .divider {
+      width: 300px;
+      height: 2px;
+      background: #9333ea;
+      margin-bottom: 30px;
+    }
+    
+    .s2 h3 {
+      font-size: 24px;
+      color: #9333ea;
+      margin-bottom: 40px;
+    }
+    
+    .s2 .tags {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    
+    .s2 .tag {
+      padding: 10px 25px;
+      border: 1px solid #9333ea;
+      border-radius: 8px;
+      font-size: 16px;
+      background: rgba(147, 51, 234, 0.2);
+    }
+    
+    /* Story Slides */
+    .story-slide {
+      justify-content: flex-start;
+    }
+    
+    .person-tag {
+      display: inline-block;
+      padding: 10px 25px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+    
+    .person-tag.zeng { background: #9333ea; }
+    .person-tag.feynman { background: #06b6d4; }
+    
+    .story-title {
+      font-size: 38px;
+      margin-bottom: 40px;
+    }
+    
+    .story-list {
+      list-style: none;
+      flex: 1;
+    }
+    
+    .story-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 0;
+      font-size: 26px;
+      color: #e5e7eb;
+      animation: slideIn 0.6s ease-out both;
+    }
+    
+    .story-item:nth-child(1) { animation-delay: 0.1s; }
+    .story-item:nth-child(2) { animation-delay: 0.2s; }
+    .story-item:nth-child(3) { animation-delay: 0.3s; }
+    .story-item:nth-child(4) { animation-delay: 0.4s; }
+    
+    .story-icon { font-size: 30px; }
+    
+    .quote-bar {
+      position: absolute;
+      bottom: 40px;
+      left: 80px;
+      right: 80px;
+      padding: 20px 30px;
+      background: #1a1a2e;
+      border-radius: 12px;
+    }
+    
+    .quote-text {
+      font-size: 18px;
+      font-style: italic;
+      text-align: center;
+    }
+    
+    /* Characters */
+    .s5 h1 {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      flex: 1;
+    }
+    
+    .char-card {
+      padding: 30px;
+      background: #1a1a2e;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+      animation: fadeUp 0.5s ease-out both;
+    }
+    
+    .char-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .char-name {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .char-desc {
+      font-size: 14px;
+      color: #9ca3af;
+    }
+    
+    /* Scenarios */
+    .s6 h1 {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .scenario-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+    
+    .scenario-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 15px 0;
+    }
+    
+    .scenario-icon { font-size: 36px; }
+    .scenario-q { font-size: 26px; flex: 1; }
+    
+    .scenario-who {
+      padding: 10px 20px;
+      background: rgba(147, 51, 234, 0.3);
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    
+    /* CTA */
+    .s7 {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .s7 .top-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: #9333ea;
+    }
+    
+    .s7 h1 {
+      font-size: 36px;
+      color: #9ca3af;
+      margin-bottom: 20px;
+    }
+    
+    .s7 h2 {
+      font-size: 52px;
+      font-weight: 700;
+      margin-bottom: 50px;
+    }
+    
+    .cta-btn {
+      display: inline-block;
+      padding: 20px 50px;
+      background: linear-gradient(135deg, #9333ea, #7c3aed);
+      border-radius: 12px;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(147, 51, 234, 0.4);
+    }
+    
+    .s7 .link {
+      font-size: 18px;
+      color: #9333ea;
+      margin-bottom: 40px;
+    }
+    
+    .s7 .tagline {
+      font-size: 16px;
+      color: #9ca3af;
+      font-style: italic;
+    }
+    
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+    
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-dot.active {
+      background: #9333ea;
+      transform: scale(1.3);
+    }
+    
+    .progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #9333ea, #ec4899);
+    }
+  </style>
+</head>
+<body>
+  <!-- Slide 1: Opening -->
+  <div class="slide s1 dark-bg active" id="s1">
+    <div class="top-line"></div>
+    <h1>如何把顶级人物变成你的导师？</h1>
+    <h2>它来了</h2>
+    <h3>他来了</h3>
+    <div class="line"></div>
+  </div>
+  
+  <!-- Slide 2: Reveal -->
+  <div class="slide s2 dark-bg" id="s2">
+    <h1>TopPerson</h1>
+    <h2>这个开源库蒸馏了各种顶级人物的 Skill</h2>
+    <div class="divider"></div>
+    <h3>让你随时调用他们的思维方式</h3>
+    <div class="tags">
+      <span class="tag">开源</span>
+      <span class="tag">免费</span>
+      <span class="tag">AI Skill</span>
+    </div>
+  </div>
+  
+  <!-- Slide 3: Zeng Guofan -->
+  <div class="slide story-slide dark-bg" id="s3">
+    <span class="person-tag zeng">曾国藩</span>
+    <h2 class="story-title">用曾国藩的方式做决策</h2>
+    <ul class="story-list">
+      <li class="story-item"><span class="story-icon">📋</span>面对复杂局面，先"结硬寨、打呆仗"</li>
+      <li class="story-item"><span class="story-icon">📝</span>每天写日记复盘，从不间断</li>
+      <li class="story-item"><span class="story-icon">🤝</span>用人之道：德为主，才为辅</li>
+      <li class="story-item"><span class="story-icon">🧘</span>越是艰难，越要心静如水</li>
+    </ul>
+    <div class="quote-bar">
+      <p class="quote-text gold">"不聪明，但极其勤奋；不取巧，但极其踏实"</p>
+    </div>
+  </div>
+  
+  <!-- Slide 4: Feynman -->
+  <div class="slide story-slide dark-bg" id="s4">
+    <span class="person-tag feynman">费曼</span>
+    <h2 class="story-title">用费曼的方式理解事物</h2>
+    <ul class="story-list">
+      <li class="story-item"><span class="story-icon">🔍</span>"你真的理解这个问题吗？"</li>
+      <li class="story-item"><span class="story-icon">🎯</span>给我画个图，用最简单的语言讲清楚</li>
+      <li class="story-item"><span class="story-icon">❌</span>遇到不懂的，绝不装懂，也不轻易放过</li>
+      <li class="story-item"><span class="story-icon">💡</span>最后你会发现：原来这么简单！</li>
+    </ul>
+    <div class="quote-bar">
+      <p class="quote-text cyan">"凡是我无法创造的，我都无法理解"</p>
+    </div>
+  </div>
+  
+  <!-- Slide 5: Characters -->
+  <div class="slide s5 dark-bg" id="s5">
+    <h1>看看有没有你的精神偶像</h1>
+    <div class="char-grid">
+      <div class="char-card" style="border: 2px solid #9333ea;">
+        <p class="char-name purple">曾国藩</p>
+        <p class="char-desc">成事之道</p>
+      </div>
+      <div class="char-card" style="border: 2px solid #9333ea;">
+        <p class="char-name purple">王阳明</p>
+        <p class="char-desc">心学智慧</p>
+      </div>
+      <div class="char-card" style="border: 2px solid #06b6d4;">
+        <p class="char-name cyan">费曼</p>
+        <p class="char-desc">深度理解</p>
+      </div>
+      <div class="char-card" style="border: 2px solid #f59e0b;">
+        <p class="char-name gold">巴菲特</p>
+        <p class="char-desc">投资思维</p>
+      </div>
+      <div class="char-card" style="border: 2px solid #ec4899;">
+        <p class="char-name accent">乔布斯</p>
+        <p class="char-desc">创新设计</p>
+      </div>
+      <div class="char-card" style="border: 2px solid #f59e0b;">
+        <p class="char-name gold">段永平</p>
+        <p class="char-desc">商业决策</p>
+      </div>
+      <div class="char-card" style="border: 2px solid #9333ea;">
+        <p class="char-name purple">张一鸣</p>
+        <p class="char-desc">理性创业</p>
+      </div>
+      <div class="char-card" style="border: 2px solid #06b6d4;">
+        <p class="char-name cyan">稻盛和夫</p>
+        <p class="char-desc">经营哲学</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slide 6: Scenarios -->
+  <div class="slide s6 dark-bg" id="s6">
+    <h1>什么时候用它？</h1>
+    <div class="scenario-list">
+      <div class="scenario-item">
+        <span class="scenario-icon">🤔</span>
+        <span class="scenario-q">这个offer要不要接？</span>
+        <span class="scenario-who">用巴菲特思维</span>
+      </div>
+      <div class="scenario-item">
+        <span class="scenario-icon">😤</span>
+        <span class="scenario-q">团队有人摸鱼怎么办？</span>
+        <span class="scenario-who">用曾国藩带团队</span>
+      </div>
+      <div class="scenario-item">
+        <span class="scenario-icon">📚</span>
+        <span class="scenario-q">学了很多但没进步？</span>
+        <span class="scenario-who">用费曼方法审视</span>
+      </div>
+      <div class="scenario-item">
+        <span class="scenario-icon">😟</span>
+        <span class="scenario-q">人生陷入低谷？</span>
+        <span class="scenario-who">用王阳明炼心性</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slide 7: CTA -->
+  <div class="slide s7 dark-bg" id="s7">
+    <div class="top-line"></div>
+    <h1>去看看</h1>
+    <h2>有没有你的精神偶像</h2>
+    <div class="cta-btn">⭐ Star 项目</div>
+    <p class="link">github.com/your-repo/topperson</p>
+    <p class="tagline">"借用一个成熟的方法框架，做更好的判断"</p>
+  </div>
+  
+  <!-- Navigation -->
+  <div class="nav" id="nav"></div>
+  <div class="progress" id="progress"></div>
+  
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const nav = document.getElementById('nav');
+    const progress = document.getElementById('progress');
+    let currentSlide = 0;
+    
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(i);
+      nav.appendChild(dot);
+    });
+    
+    function updateSlide() {
+      slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+      document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+      progress.style.width = ((currentSlide + 1) / slides.length * 100) + '%';
+    }
+    
+    function goToSlide(index) {
+      currentSlide = Math.max(0, Math.min(index, slides.length - 1));
+      updateSlide();
+    }
+    
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+    
+    let autoAdvance = setInterval(nextSlide, 4000);
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        clearInterval(autoAdvance);
+        nextSlide();
+        autoAdvance = setInterval(nextSlide, 4000);
+      } else if (e.key === 'ArrowLeft') {
+        clearInterval(autoAdvance);
+        currentSlide = Math.max(0, currentSlide - 1);
+        updateSlide();
+        autoAdvance = setInterval(nextSlide, 4000);
+      }
+    });
+  </script>
+</body>
+</html>

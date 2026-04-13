@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TopPerson - 把顶尖人物做成 AI Skill</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes drawLine {
+      from { width: 0; }
+      to { width: 100px; }
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #0d0d1a;
+      color: #fff;
+      overflow: hidden;
+    }
+    
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      padding: 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .slide.active { display: flex; flex-direction: column; }
+    
+    /* Slide 1: Cover */
+    .slide-1 {
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 50%, #16213e 100%);
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .slide-1::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+      animation: float 8s ease-in-out infinite;
+    }
+    
+    .slide-1 .badge {
+      display: inline-block;
+      padding: 8px 24px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 30px;
+      font-size: 14px;
+      color: #a78bfa;
+      margin-bottom: 30px;
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .slide-1 h1 {
+      font-size: 72px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, #a78bfa 50%, #60a5fa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      animation: fadeIn 0.8s ease-out 0.2s both;
+    }
+    
+    .slide-1 h2 {
+      font-size: 36px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.8);
+      animation: fadeIn 0.8s ease-out 0.4s both;
+    }
+    
+    .slide-1 .tagline {
+      font-size: 24px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 40px;
+      animation: fadeIn 0.8s ease-out 0.6s both;
+    }
+    
+    /* Slide 2: TOC */
+    .slide-2 {
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 100%);
+    }
+    
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+      flex: 1;
+      align-content: center;
+    }
+    
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 30px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      animation: slideIn 0.6s ease-out both;
+    }
+    
+    .toc-item:nth-child(1) { animation-delay: 0.1s; }
+    .toc-item:nth-child(2) { animation-delay: 0.2s; }
+    .toc-item:nth-child(3) { animation-delay: 0.3s; }
+    .toc-item:nth-child(4) { animation-delay: 0.4s; }
+    
+    .toc-item:hover {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.3);
+      transform: translateX(10px);
+    }
+    
+    .toc-num {
+      font-size: 48px;
+      font-weight: 800;
+      color: #8b5cf6;
+      opacity: 0.5;
+    }
+    
+    .toc-text h3 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .toc-text p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.5);
+    }
+    
+    /* Section Slides */
+    .section-slide {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .section-slide .section-num {
+      font-size: 120px;
+      font-weight: 900;
+      color: rgba(139, 92, 246, 0.15);
+      margin-bottom: 20px;
+    }
+    
+    .section-slide h2 {
+      font-size: 56px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    
+    .section-slide p {
+      font-size: 24px;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    /* Content Slides */
+    .content-slide {
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 100%);
+    }
+    
+    .slide-header {
+      margin-bottom: 50px;
+    }
+    
+    .slide-header h2 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+    
+    .slide-header .subtitle {
+      font-size: 18px;
+      color: rgba(255,255,255,0.5);
+    }
+    
+    /* Pain Points */
+    .pain-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      flex: 1;
+      align-content: center;
+    }
+    
+    .pain-card {
+      padding: 40px;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 20px;
+      text-align: center;
+      animation: scaleIn 0.6s ease-out both;
+    }
+    
+    .pain-card:nth-child(1) { animation-delay: 0.1s; }
+    .pain-card:nth-child(2) { animation-delay: 0.2s; }
+    .pain-card:nth-child(3) { animation-delay: 0.3s; }
+    
+    .pain-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    
+    .pain-card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: #fca5a5;
+    }
+    
+    .pain-card p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+    }
+    
+    /* Solution */
+    .solution-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .solution-quote {
+      font-size: 32px;
+      font-weight: 600;
+      color: #a78bfa;
+      margin-bottom: 50px;
+      padding: 30px 60px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.15));
+      border-radius: 16px;
+      border-left: 4px solid #8b5cf6;
+    }
+    
+    .solution-examples {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+    }
+    
+    .example-card {
+      padding: 30px 40px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      text-align: center;
+      animation: fadeIn 0.6s ease-out both;
+    }
+    
+    .example-card:nth-child(1) { animation-delay: 0.2s; }
+    .example-card:nth-child(2) { animation-delay: 0.3s; }
+    .example-card:nth-child(3) { animation-delay: 0.4s; }
+    
+    .example-emoji {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    
+    .example-card h4 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .example-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    /* Positioning */
+    .positioning-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 40px;
+      flex: 1;
+      align-items: center;
+    }
+    
+    .pos-box {
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+    }
+    
+    .pos-box.not {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    
+    .pos-box.is {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    
+    .pos-box h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    .pos-box.is h3 { color: #86efac; }
+    .pos-box.not h3 { color: #fca5a5; }
+    
+    .pos-box p {
+      font-size: 28px;
+      font-weight: 600;
+    }
+    
+    .pos-divider {
+      font-size: 48px;
+      color: #8b5cf6;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    /* Capabilities */
+    .caps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      flex: 1;
+      align-content: center;
+    }
+    
+    .cap-card {
+      padding: 40px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 20px;
+      text-align: center;
+      animation: scaleIn 0.6s ease-out both;
+    }
+    
+    .cap-card:nth-child(1) { animation-delay: 0.1s; }
+    .cap-card:nth-child(2) { animation-delay: 0.2s; }
+    .cap-card:nth-child(3) { animation-delay: 0.3s; }
+    
+    .cap-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    
+    .cap-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: #a78bfa;
+    }
+    
+    .cap-card p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+    }
+    
+    /* Characters */
+    .chars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      flex: 1;
+      align-content: center;
+    }
+    
+    .char-card {
+      padding: 30px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+      animation: scaleIn 0.5s ease-out both;
+    }
+    
+    .char-card:hover {
+      background: rgba(139, 92, 246, 0.15);
+      transform: translateY(-5px);
+    }
+    
+    .char-emoji {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    
+    .char-card h4 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    
+    .char-card p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+    }
+    
+    /* Scenes */
+    .scenes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      flex: 1;
+      align-content: center;
+    }
+    
+    .scene-card {
+      padding: 40px 30px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.05));
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 20px;
+      text-align: center;
+      animation: fadeIn 0.6s ease-out both;
+    }
+    
+    .scene-card:nth-child(1) { animation-delay: 0.1s; }
+    .scene-card:nth-child(2) { animation-delay: 0.2s; }
+    .scene-card:nth-child(3) { animation-delay: 0.3s; }
+    .scene-card:nth-child(4) { animation-delay: 0.4s; }
+    
+    .scene-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    
+    .scene-card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: #a78bfa;
+    }
+    
+    .scene-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    /* How to Use */
+    .steps-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex: 1;
+      align-items: center;
+    }
+    
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn 0.6s ease-out both;
+    }
+    
+    .step:nth-child(1) { animation-delay: 0.1s; }
+    .step:nth-child(2) { animation-delay: 0.2s; }
+    .step:nth-child(3) { animation-delay: 0.3s; }
+    
+    .step-num {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      border-radius: 50%;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+    }
+    
+    .step h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    
+    .step p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      max-width: 200px;
+    }
+    
+    .step-arrow {
+      font-size: 36px;
+      color: #8b5cf6;
+      opacity: 0.5;
+    }
+    
+    /* CTA Slide */
+    .slide-12 {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0d0d1a 100%);
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .cta-content {
+      max-width: 800px;
+    }
+    
+    .cta-content h2 {
+      font-size: 48px;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, #fff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .cta-actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 60px;
+    }
+    
+    .cta-btn {
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+    }
+    
+    .cta-tagline {
+      font-size: 24px;
+      color: rgba(255,255,255,0.7);
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+    
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-dot.active {
+      background: #8b5cf6;
+      transform: scale(1.3);
+    }
+    
+    .progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #8b5cf6, #6366f1);
+      transition: width 0.3s ease;
+    }
+    
+    /* Decorative elements */
+    .decoration {
+      position: absolute;
+      pointer-events: none;
+    }
+    
+    .decoration.circle {
+      border-radius: 50%;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+    
+    .dec-1 {
+      width: 400px;
+      height: 400px;
+      top: -100px;
+      right: -100px;
+      animation: float 10s ease-in-out infinite;
+    }
+    
+    .dec-2 {
+      width: 200px;
+      height: 200px;
+      bottom: -50px;
+      left: -50px;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+  </style>
+</head>
+<body>
+  <!-- Slide 1: Cover -->
+  <div class="slide slide-1 active" id="slide-1">
+    <div class="decoration circle dec-1"></div>
+    <div class="decoration circle dec-2"></div>
+    <span class="badge">🌟 开源项目 · AI Skill 集合</span>
+    <h1>TopPerson</h1>
+    <h2>把顶尖人物做成 AI Skill</h2>
+    <p class="tagline">借一个成熟的方法框架，做更好的判断</p>
+  </div>
+  
+  <!-- Slide 2: TOC -->
+  <div class="slide slide-2" id="slide-2">
+    <div class="slide-header">
+      <h2>目录</h2>
+      <p class="subtitle">本次分享的四个部分</p>
+    </div>
+    <div class="toc-grid">
+      <div class="toc-item">
+        <span class="toc-num">01</span>
+        <div class="toc-text">
+          <h3>问题</h3>
+          <p>为什么需要这个</p>
+        </div>
+      </div>
+      <div class="toc-item">
+        <span class="toc-num">02</span>
+        <div class="toc-text">
+          <h3>定位</h3>
+          <p>它是什么</p>
+        </div>
+      </div>
+      <div class="toc-item">
+        <span class="toc-num">03</span>
+        <div class="toc-text">
+          <h3>内容</h3>
+          <p>包含哪些人物</p>
+        </div>
+      </div>
+      <div class="toc-item">
+        <span class="toc-num">04</span>
+        <div class="toc-text">
+          <h3>使用</h3>
+          <p>如何使用</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slide 3: Section 1 -->
+  <div class="slide section-slide" id="slide-3">
+    <div class="section-num">01</div>
+    <h2>问题</h2>
+    <p>为什么需要这个</p>
+  </div>
+  
+  <!-- Slide 4: Pain Points -->
+  <div class="slide content-slide" id="slide-4">
+    <div class="slide-header">
+      <h2>现代人的三大困境</h2>
+      <p class="subtitle">信息爆炸时代，我们的判断力正在被稀释</p>
+    </div>
+    <div class="pain-points">
+      <div class="pain-card">
+        <div class="pain-icon">📚</div>
+        <h3>信息太多，判断太少</h3>
+        <p>每天被海量信息轰炸，却不知道什么真正重要</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">💭</div>
+        <h3>学了道理，不会用</h3>
+        <p>道理听了一堆，遇到问题还是凭直觉</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">😤</div>
+        <h3>决策被情绪左右</h3>
+        <p>事后后悔：当时为什么不冷静一点？</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slide 5: Solution -->
+  <div class="slide content-slide" id="slide-5">
+    <div class="slide-header">
+      <h2>解决方案</h2>
+      <p class="subtitle">借助伟人的智慧，提升你的判断力</p>
+    </div>
+    <div class="solution-content">
+      <div class="solution-quote">
+        "借一个成熟的方法框架，做更好的判断"
+      </div>
+      <div class="solution-examples">
+        <div class="example-card">
+          <div class="example-emoji">📖</div>
+          <h4>曾国藩</h4>
+          <p>修身齐家的智慧</p>
+        </div>
+        <div class="example-card">
+          <div class="example-emoji">🔬</div>
+          <h4>费曼</h4>
+          <p>深度理解的方法</p>
+        </div>
+        <div class="example-card">
+          <div class="example-emoji">💼</div>
+          <h4>段永平</h4>
+          <p>商业决策的思维</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slide 6: Section 2 -->
+  <div class="slide section-slide" id="slide-6">
+    <div class="section-num">02</div>
+    <h2>定位</h2>
+    <p>它是什么</p>
+  </div>
+  
+  <!-- Slide 7: Positioning -->
+  <div class="slide content-slide" id="slide-7">
+    <div class="slide-header">
+      <h2>核心定位</h2>
+      <p class="subtitle">我们不只是语录的搬运工</p>
+    </div>
+    <div class="positioning-grid">
+      <div class="pos-box not">
+        <h3>不是</h3>
+        <p>语录库/名言集</p>
+      </div>
+      <div class="pos-divider">→</div>
+      <div class="pos-box is">
+        <h3>而是</h3>
+        <p>方法论仓库</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slide 8: Capabilities -->
+  <div class="slide content-slide" id="slide-8">
+    <div class="slide-header">
+      <h2>三个关键能力</h2>
+      <p class="subtitle">不只是收集，是深度的整理和转化</p>
+    </div>
+    <div class="caps-grid">
+      <div class="cap-card">
+        <div class="cap-icon">🧠</div>
+        <h3>提炼方法论</h3>
+        <p>从人物著作、传记、语录中提炼核心方法论和思维模型</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🔄</div>
+        <h3>翻译成建议</h3>
+        <p>将古人的智慧翻译成现代人可以直接使用的行动建议</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">⚡</div>
+        <h3>AI 稳定调用</h3>
+        <p>封装成 AI Skill，随时调用，获得稳定可靠的指导</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slide 9: Characters -->
+  <div class="slide content-slide" id="slide-9">
+    <div class="slide-header">
+      <h2>精选人物</h2>
+      <p class="subtitle">涵盖东方智慧与西方思维</p>
+    </div>
+    <div class="chars-grid">
+      <div class="char-card">
+        <div class="char-emoji">📖</div>
+        <h4>曾国藩</h4>
+        <p>晚清名臣</p>
+      </div>
+      <div class="char-card">
+        <div class="char-emoji">🔬</div>
+        <h4>费曼</h4>
+        <p>物理学家</p>
+      </div>
+      <div class="char-card">
+        <div class="char-emoji">💼</div>
+        <h4>段永平</h4>
+        <p>企业家</p>
+      </div>
+      <div class="char-card">
+        <div class="char-emoji">📈</div>
+        <h4>巴菲特</h4>
+        <p>投资大师</p>
+      </div>
+      <div class="char-card">
+        <div class="char-emoji">🌟</div>
+        <h4>王阳明</h4>
+        <p>心学大师</p>
+      </div>
+      <div class="char-card">
+        <div class="char-emoji">🍎</div>
+        <h4>乔布斯</h4>
+        <p>创新教父</p>
+      </div>
+      <div class="char-card">
+        <div class="char-emoji">🚀</div>
+        <h4>张一鸣</h4>
+        <p>字节创始人</p>
+      </div>
+      <div class="char-card">
+        <div class="char-emoji">⚙️</div>
+        <h4>稻盛和夫</h4>
+        <p>经营之圣</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slide 10: Scenes -->
+  <div class="slide content-slide" id="slide-10">
+    <div class="slide-header">
+      <h2>使用场景</h2>
+      <p class="subtitle">覆盖生活的各个维度</p>
+    </div>
+    <div class="scenes-grid">
+      <div class="scene-card">
+        <div class="scene-icon">🏠</div>
+        <h3>生活</h3>
+        <p>日常决策<br>人际关系<br>情绪管理</p>
+      </div>
+      <div class="scene-card">
+        <div class="scene-icon">📚</div>
+        <h3>学习</h3>
+        <p>知识管理<br>深度理解<br>输出表达</p>
+      </div>
+      <div class="scene-card">
+        <div class="scene-icon">💼</div>
+        <h3>工作</h3>
+        <p>职业发展<br>团队管理<br>商业决策</p>
+      </div>
+      <div class="scene-card">
+        <div class="scene-icon">🎯</div>
+        <h3>人生</h3>
+        <p>人生规划<br>价值观塑造<br>长期主义</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slide 11: How to Use -->
+  <div class="slide content-slide" id="slide-11">
+    <div class="slide-header">
+      <h2>使用方法</h2>
+      <p class="subtitle">简单三步，获得伟人的智慧</p>
+    </div>
+    <div class="steps-container">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>选择人物</h3>
+        <p>从人物列表中选择你欣赏的伟人</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>描述问题</h3>
+        <p>用自然语言描述你当前的困惑或决策</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>获得建议</h3>
+        <p>AI 会调用对应的方法论，给出针对性的建议</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slide 12: CTA -->
+  <div class="slide slide-12" id="slide-12">
+    <div class="cta-content">
+      <h2>开始使用 TopPerson</h2>
+      <div class="cta-actions">
+        <button class="cta-btn">⭐ Star 项目</button>
+        <button class="cta-btn">📖 阅读文档</button>
+        <button class="cta-btn">🤝 贡献内容</button>
+      </div>
+      <p class="cta-tagline">"借一个成熟的方法框架，做更好的判断"</p>
+    </div>
+  </div>
+  
+  <!-- Navigation -->
+  <div class="nav" id="nav"></div>
+  <div class="progress" id="progress"></div>
+  
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const nav = document.getElementById('nav');
+    const progress = document.getElementById('progress');
+    let currentSlide = 0;
+    
+    // Create navigation dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(i);
+      nav.appendChild(dot);
+    });
+    
+    function updateSlide() {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === currentSlide);
+      });
+      document.querySelectorAll('.nav-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === currentSlide);
+      });
+      progress.style.width = ((currentSlide + 1) / slides.length * 100) + '%';
+    }
+    
+    function goToSlide(index) {
+      currentSlide = Math.max(0, Math.min(index, slides.length - 1));
+      updateSlide();
+    }
+    
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+    
+    // Auto advance every 5 seconds
+    let autoAdvance = setInterval(nextSlide, 5000);
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        clearInterval(autoAdvance);
+        nextSlide();
+        autoAdvance = setInterval(nextSlide, 5000);
+      } else if (e.key === 'ArrowLeft') {
+        clearInterval(autoAdvance);
+        currentSlide = Math.max(0, currentSlide - 1);
+        updateSlide();
+        autoAdvance = setInterval(nextSlide, 5000);
+      }
+    });
+    
+    // Touch support
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    });
+    document.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        clearInterval(autoAdvance);
+        if (diff > 0) nextSlide();
+        else currentSlide = Math.max(0, currentSlide - 1);
+        updateSlide();
+        autoAdvance = setInterval(nextSlide, 5000);
+      }
+    });
+  </script>
+</body>
+</html>
