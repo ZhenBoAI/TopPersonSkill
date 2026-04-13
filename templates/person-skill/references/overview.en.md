@@ -34,7 +34,7 @@ Supported task modes:
 Direct invocation:
 
 ```text
-Use $person-skill-name to analyze this situation with the method of this person and give me a practical plan.
+Use $personname-skill to analyze this situation with the method of this person and give me a practical plan.
 ```
 
 Natural-language triggers:

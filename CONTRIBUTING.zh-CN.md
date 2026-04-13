@@ -93,7 +93,7 @@
 
 ## 命名规范
 
-- skill 文件夹名使用小写加连字符，例如 `zeng-guofan-skill`
+- skill 文件夹名使用小写加连字符，例如 `zengguofan-skill`
 - `SKILL.md` frontmatter 中的 `name` 必须与文件夹名一致
 - 名称应尽量简短、稳定、可预测
 

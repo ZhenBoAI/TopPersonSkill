@@ -24,9 +24,13 @@ def build_mapping() -> dict[str, str]:
     for path in sorted(SKILLS_ROOT.iterdir()):
         if not path.is_dir():
             continue
-        if path.name.endswith("-skill"):
+        if not path.name.endswith("-skill"):
             continue
-        mapping[path.name] = f"{path.name}-skill"
+        stem = path.name.removesuffix("-skill")
+        normalized = stem.replace("-", "")
+        new_name = f"{normalized}-skill"
+        if new_name != path.name:
+            mapping[path.name] = new_name
     return mapping
 
 
@@ -74,8 +78,10 @@ def replace_readme_labels(text: str) -> str:
 
 
 def replace_contributing_examples(text: str) -> str:
-    text = text.replace("such as `zeng-guofan`", "such as `zeng-guofan-skill`")
-    text = text.replace("例如 `zeng-guofan`", "例如 `zeng-guofan-skill`")
+    text = text.replace("such as `zeng-guofan`", "such as `zengguofan-skill`")
+    text = text.replace("例如 `zeng-guofan`", "例如 `zengguofan-skill`")
+    text = text.replace("such as `zeng-guofan-skill`", "such as `zengguofan-skill`")
+    text = text.replace("例如 `zeng-guofan-skill`", "例如 `zengguofan-skill`")
     return text
 
 

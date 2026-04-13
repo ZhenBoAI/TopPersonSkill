@@ -93,7 +93,7 @@ File roles:
 
 ## Naming Rules
 
-- Use lowercase hyphenated folder names such as `zeng-guofan-skill`
+- Use lowercase hyphenated folder names such as `zengguofan-skill`
 - The `name` field in `SKILL.md` frontmatter must match the folder name
 - Names should be short, stable, and predictable
 

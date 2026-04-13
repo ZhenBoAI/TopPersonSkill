@@ -1,5 +1,5 @@
 ---
-name: person-skill-name
+name: personname-skill
 description: 基于某个人物的一手资料、可信研究与公开材料，提炼其修身、决策、处事、领导、创作或专业方法论，并将其转译为现代、合法、可执行的分析与行动建议。Use when Codex needs advice in this person's style for real-world judgment, planning, conflict handling, self-discipline, team leadership, or domain-specific decisions.
 ---
 

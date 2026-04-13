@@ -34,7 +34,7 @@
 直接调用示例：
 
 ```text
-Use $person-skill-name to analyze this situation with the method of this person and give me a practical plan.
+Use $personname-skill to analyze this situation with the method of this person and give me a practical plan.
 ```
 
 自然语言触发示例：

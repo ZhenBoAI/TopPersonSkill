@@ -53,57 +53,57 @@ Current repository status: `45` skill directories in [`.agents/skills`](./.agent
 
 ### Reference Skill
 
-- [`zeng-guofan-skill`](./.agents/skills/zeng-guofan-skill/SKILL.md): Qing statesman and military leader known for self-discipline, team building, and long-horizon order.
+- [`zengguofan-skill`](./.agents/skills/zengguofan-skill/SKILL.md): Qing statesman and military leader known for self-discipline, team building, and long-horizon order.
 
 ### Other Available Skills
 
-- [`andy-grove-skill`](./.agents/skills/andy-grove-skill/SKILL.md): Former Intel CEO known for paranoid management and execution systems.
-- [`benjamin-franklin-skill`](./.agents/skills/benjamin-franklin-skill/SKILL.md): Statesman, inventor, and writer known for habits, self-improvement, and pragmatism.
-- [`cao-cao-skill`](./.agents/skills/cao-cao-skill/SKILL.md): Three Kingdoms statesman, warlord, and poet known for strategy and talent use.
-- [`cao-dewang-skill`](./.agents/skills/cao-dewang-skill/SKILL.md): Founder of Fuyao Glass known for industrial discipline, cost awareness, and pragmatic execution.
-- [`charlie-munger-skill`](./.agents/skills/charlie-munger-skill/SKILL.md): Investor and Buffett's longtime partner known for mental models and avoiding stupidity.
-- [`duan-yongping-skill`](./.agents/skills/duan-yongping-skill/SKILL.md): Chinese entrepreneur and investor known for long-termism, selective focus, and business judgment.
-- [`elon-musk-skill`](./.agents/skills/elon-musk-skill/SKILL.md): Entrepreneur known for first-principles thinking, technical boldness, and hard trade-offs.
-- [`haruki-murakami-skill`](./.agents/skills/haruki-murakami-skill/SKILL.md): Japanese novelist known for routine, endurance, and long solitary creative work.
-- [`hayao-miyazaki-skill`](./.agents/skills/hayao-miyazaki-skill/SKILL.md): Japanese animator and director known for craft discipline and creative standards.
-- [`jack-ma-skill`](./.agents/skills/jack-ma-skill/SKILL.md): Entrepreneur and communicator known for market education and organizational energy.
-- [`jeff-bezos-skill`](./.agents/skills/jeff-bezos-skill/SKILL.md): Amazon founder known for customer obsession, flywheel thinking, and long-term building.
-- [`jensen-huang-skill`](./.agents/skills/jensen-huang-skill/SKILL.md): NVIDIA founder known for long-term R&D, technical strategy, and founder leadership.
-- [`kazuo-inamori-skill`](./.agents/skills/kazuo-inamori-skill/SKILL.md): Kyocera founder known for management discipline, altruism, and long-term organization building.
-- [`kobe-bryant-skill`](./.agents/skills/kobe-bryant-skill/SKILL.md): Basketball icon known for discipline, deliberate practice, and competitive standards.
-- [`konosuke-matsushita-skill`](./.agents/skills/konosuke-matsushita-skill/SKILL.md): Panasonic founder known for management philosophy, people development, and enterprise building.
-- [`lee-kuan-yew-skill`](./.agents/skills/lee-kuan-yew-skill/SKILL.md): Founding Prime Minister of Singapore known for institutional design and pragmatic trade-offs.
-- [`lei-jun-skill`](./.agents/skills/lei-jun-skill/SKILL.md): Entrepreneur and product-minded founder known for product judgment, efficiency, and sincere communication.
-- [`luo-xiang-skill`](./.agents/skills/luo-xiang-skill/SKILL.md): Law professor and public educator known for principled reasoning and clear explanation.
-- [`marcus-aurelius-skill`](./.agents/skills/marcus-aurelius-skill/SKILL.md): Roman emperor and Stoic thinker known for self-command, emotional steadiness, and duty.
+- [`andygrove-skill`](./.agents/skills/andygrove-skill/SKILL.md): Former Intel CEO known for paranoid management and execution systems.
+- [`benjaminfranklin-skill`](./.agents/skills/benjaminfranklin-skill/SKILL.md): Statesman, inventor, and writer known for habits, self-improvement, and pragmatism.
+- [`caocao-skill`](./.agents/skills/caocao-skill/SKILL.md): Three Kingdoms statesman, warlord, and poet known for strategy and talent use.
+- [`caodewang-skill`](./.agents/skills/caodewang-skill/SKILL.md): Founder of Fuyao Glass known for industrial discipline, cost awareness, and pragmatic execution.
+- [`charliemunger-skill`](./.agents/skills/charliemunger-skill/SKILL.md): Investor and Buffett's longtime partner known for mental models and avoiding stupidity.
+- [`duanyongping-skill`](./.agents/skills/duanyongping-skill/SKILL.md): Chinese entrepreneur and investor known for long-termism, selective focus, and business judgment.
+- [`elonmusk-skill`](./.agents/skills/elonmusk-skill/SKILL.md): Entrepreneur known for first-principles thinking, technical boldness, and hard trade-offs.
+- [`harukimurakami-skill`](./.agents/skills/harukimurakami-skill/SKILL.md): Japanese novelist known for routine, endurance, and long solitary creative work.
+- [`hayaomiyazaki-skill`](./.agents/skills/hayaomiyazaki-skill/SKILL.md): Japanese animator and director known for craft discipline and creative standards.
+- [`jackma-skill`](./.agents/skills/jackma-skill/SKILL.md): Entrepreneur and communicator known for market education and organizational energy.
+- [`jeffbezos-skill`](./.agents/skills/jeffbezos-skill/SKILL.md): Amazon founder known for customer obsession, flywheel thinking, and long-term building.
+- [`jensenhuang-skill`](./.agents/skills/jensenhuang-skill/SKILL.md): NVIDIA founder known for long-term R&D, technical strategy, and founder leadership.
+- [`kazuoinamori-skill`](./.agents/skills/kazuoinamori-skill/SKILL.md): Kyocera founder known for management discipline, altruism, and long-term organization building.
+- [`kobebryant-skill`](./.agents/skills/kobebryant-skill/SKILL.md): Basketball icon known for discipline, deliberate practice, and competitive standards.
+- [`konosukematsushita-skill`](./.agents/skills/konosukematsushita-skill/SKILL.md): Panasonic founder known for management philosophy, people development, and enterprise building.
+- [`leekuanyew-skill`](./.agents/skills/leekuanyew-skill/SKILL.md): Founding Prime Minister of Singapore known for institutional design and pragmatic trade-offs.
+- [`leijun-skill`](./.agents/skills/leijun-skill/SKILL.md): Entrepreneur and product-minded founder known for product judgment, efficiency, and sincere communication.
+- [`luoxiang-skill`](./.agents/skills/luoxiang-skill/SKILL.md): Law professor and public educator known for principled reasoning and clear explanation.
+- [`marcusaurelius-skill`](./.agents/skills/marcusaurelius-skill/SKILL.md): Roman emperor and Stoic thinker known for self-command, emotional steadiness, and duty.
 - [`napoleon-skill`](./.agents/skills/napoleon-skill/SKILL.md): Military and political leader known for strategy, timing, and concentration of effort.
-- [`peter-drucker-skill`](./.agents/skills/peter-drucker-skill/SKILL.md): Foundational management thinker known for objectives and knowledge work effectiveness.
-- [`rafael-nadal-skill`](./.agents/skills/rafael-nadal-skill/SKILL.md): Tennis champion known for resilience, consistency, and low-error execution.
-- [`ray-dalio-skill`](./.agents/skills/ray-dalio-skill/SKILL.md): Bridgewater founder known for principles, systemized decisions, and feedback loops.
-- [`ren-zhengfei-skill`](./.agents/skills/ren-zhengfei-skill/SKILL.md): Huawei founder known for crisis awareness, survival thinking, and organizational discipline.
-- [`richard-feynman-skill`](./.agents/skills/richard-feynman-skill/SKILL.md): Physicist and explainer known for understanding, explanation, and curiosity.
-- [`steve-jobs-skill`](./.agents/skills/steve-jobs-skill/SKILL.md): Apple co-founder known for product taste, focus, and high standards.
-- [`su-shi-skill`](./.agents/skills/su-shi-skill/SKILL.md): Song dynasty writer and statesman known for resilience, emotional balance, and life order under adversity.
-- [`wang-xing-skill`](./.agents/skills/wang-xing-skill/SKILL.md): Founder of Meituan known for competitive judgment, strategic focus, and organizational scaling.
-- [`wang-yangming-skill`](./.agents/skills/wang-yangming-skill/SKILL.md): Ming dynasty thinker and general known for unity of knowledge and action.
-- [`warren-buffett-skill`](./.agents/skills/warren-buffett-skill/SKILL.md): Long-term investing icon known for circle of competence, patience, and durable decisions.
-- [`zhang-yiming-skill`](./.agents/skills/zhang-yiming-skill/SKILL.md): ByteDance founder known for rational decision-making, information processing, and mechanism design.
-- [`zhuge-liang-skill`](./.agents/skills/zhuge-liang-skill/SKILL.md): Three Kingdoms strategist and statesman known for planning discipline, diligence, and conscientious execution.
+- [`peterdrucker-skill`](./.agents/skills/peterdrucker-skill/SKILL.md): Foundational management thinker known for objectives and knowledge work effectiveness.
+- [`rafaelnadal-skill`](./.agents/skills/rafaelnadal-skill/SKILL.md): Tennis champion known for resilience, consistency, and low-error execution.
+- [`raydalio-skill`](./.agents/skills/raydalio-skill/SKILL.md): Bridgewater founder known for principles, systemized decisions, and feedback loops.
+- [`renzhengfei-skill`](./.agents/skills/renzhengfei-skill/SKILL.md): Huawei founder known for crisis awareness, survival thinking, and organizational discipline.
+- [`richardfeynman-skill`](./.agents/skills/richardfeynman-skill/SKILL.md): Physicist and explainer known for understanding, explanation, and curiosity.
+- [`stevejobs-skill`](./.agents/skills/stevejobs-skill/SKILL.md): Apple co-founder known for product taste, focus, and high standards.
+- [`sushi-skill`](./.agents/skills/sushi-skill/SKILL.md): Song dynasty writer and statesman known for resilience, emotional balance, and life order under adversity.
+- [`wangxing-skill`](./.agents/skills/wangxing-skill/SKILL.md): Founder of Meituan known for competitive judgment, strategic focus, and organizational scaling.
+- [`wangyangming-skill`](./.agents/skills/wangyangming-skill/SKILL.md): Ming dynasty thinker and general known for unity of knowledge and action.
+- [`warrenbuffett-skill`](./.agents/skills/warrenbuffett-skill/SKILL.md): Long-term investing icon known for circle of competence, patience, and durable decisions.
+- [`zhangyiming-skill`](./.agents/skills/zhangyiming-skill/SKILL.md): ByteDance founder known for rational decision-making, information processing, and mechanism design.
+- [`zhugeliang-skill`](./.agents/skills/zhugeliang-skill/SKILL.md): Three Kingdoms strategist and statesman known for planning discipline, diligence, and conscientious execution.
 
 ### Newly Added Draft Skills
 
 - [`confucius-skill`](./.agents/skills/confucius-skill/SKILL.md): Classical Chinese teacher and thinker known for conduct, learning, role responsibility, and everyday order.
-- [`hu-shi-skill`](./.agents/skills/hu-shi-skill/SKILL.md): Modern Chinese writer and thinker known for evidence, skepticism, and plain expression.
-- [`tao-xingzhi-skill`](./.agents/skills/tao-xingzhi-skill/SKILL.md): Educator known for learning by doing and practical education.
-- [`qian-xuesen-skill`](./.agents/skills/qian-xuesen-skill/SKILL.md): Scientist and engineer known for systems thinking and complex-project synthesis.
-- [`yuan-longping-skill`](./.agents/skills/yuan-longping-skill/SKILL.md): Agricultural scientist known for field-tested persistence and practical science.
-- [`tu-youyou-skill`](./.agents/skills/tu-youyou-skill/SKILL.md): Scientist known for evidence extraction, quiet rigor, and patient validation.
-- [`ma-huateng-skill`](./.agents/skills/ma-huateng-skill/SKILL.md): Founder of Tencent known for product restraint, pacing, and platform judgment.
-- [`zhang-ruimin-skill`](./.agents/skills/zhang-ruimin-skill/SKILL.md): Haier leader known for accountability, self-disruption, and user-facing organizational change.
-- [`viktor-frankl-skill`](./.agents/skills/viktor-frankl-skill/SKILL.md): Psychiatrist and thinker known for meaning, agency, and response under suffering.
-- [`taiichi-ohno-skill`](./.agents/skills/taiichi-ohno-skill/SKILL.md): Toyota production pioneer known for waste reduction, process discipline, and go-to-gemba observation.
-- [`satya-nadella-skill`](./.agents/skills/satya-nadella-skill/SKILL.md): Microsoft CEO known for empathy, learning culture, and strategic renewal.
-- [`daniel-kahneman-skill`](./.agents/skills/daniel-kahneman-skill/SKILL.md): Psychologist known for bias reduction, decision hygiene, and noise control.
+- [`hushi-skill`](./.agents/skills/hushi-skill/SKILL.md): Modern Chinese writer and thinker known for evidence, skepticism, and plain expression.
+- [`taoxingzhi-skill`](./.agents/skills/taoxingzhi-skill/SKILL.md): Educator known for learning by doing and practical education.
+- [`qianxuesen-skill`](./.agents/skills/qianxuesen-skill/SKILL.md): Scientist and engineer known for systems thinking and complex-project synthesis.
+- [`yuanlongping-skill`](./.agents/skills/yuanlongping-skill/SKILL.md): Agricultural scientist known for field-tested persistence and practical science.
+- [`tuyouyou-skill`](./.agents/skills/tuyouyou-skill/SKILL.md): Scientist known for evidence extraction, quiet rigor, and patient validation.
+- [`mahuateng-skill`](./.agents/skills/mahuateng-skill/SKILL.md): Founder of Tencent known for product restraint, pacing, and platform judgment.
+- [`zhangruimin-skill`](./.agents/skills/zhangruimin-skill/SKILL.md): Haier leader known for accountability, self-disruption, and user-facing organizational change.
+- [`viktorfrankl-skill`](./.agents/skills/viktorfrankl-skill/SKILL.md): Psychiatrist and thinker known for meaning, agency, and response under suffering.
+- [`taiichiohno-skill`](./.agents/skills/taiichiohno-skill/SKILL.md): Toyota production pioneer known for waste reduction, process discipline, and go-to-gemba observation.
+- [`satyanadella-skill`](./.agents/skills/satyanadella-skill/SKILL.md): Microsoft CEO known for empathy, learning culture, and strategic renewal.
+- [`danielkahneman-skill`](./.agents/skills/danielkahneman-skill/SKILL.md): Psychologist known for bias reduction, decision hygiene, and noise control.
 
 See also:
 
@@ -136,7 +136,7 @@ Open [`.agents/skills`](./.agents/skills) and choose a person.
 Example:
 
 ```text
-Use $zeng-guofan-skill to analyze this situation and give me actionable advice.
+Use $zengguofan-skill to analyze this situation and give me actionable advice.
 ```
 
 ### 3. Ask by scenario
@@ -144,10 +144,10 @@ Use $zeng-guofan-skill to analyze this situation and give me actionable advice.
 Example prompts:
 
 ```text
-Use $wang-yangming-skill to help me stop overthinking and start acting.
-Use $richard-feynman-skill to help me learn this topic clearly.
-Use $lei-jun-skill to help me judge this product direction.
-Use $duan-yongping-skill to help me decide whether this opportunity is worth doing.
+Use $wangyangming-skill to help me stop overthinking and start acting.
+Use $richardfeynman-skill to help me learn this topic clearly.
+Use $leijun-skill to help me judge this product direction.
+Use $duanyongping-skill to help me decide whether this opportunity is worth doing.
 ```
 
 ### 4. Pick a task mode
@@ -162,9 +162,9 @@ Most person skills now support four common modes:
 Examples:
 
 ```text
-Use $zeng-guofan-skill to give me a quick judgment on this team problem.
+Use $zengguofan-skill to give me a quick judgment on this team problem.
 Use $confucius-skill to draft what I should say in this conflict.
-Use $richard-feynman-skill to make me a 30-day learning plan for this topic.
+Use $richardfeynman-skill to make me a 30-day learning plan for this topic.
 ```
 
 ### 5. Read the built-in examples
